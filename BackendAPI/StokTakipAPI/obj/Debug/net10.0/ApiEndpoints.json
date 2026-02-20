@@ -1,0 +1,32 @@
+[
+  {
+    "ContainingType": "StokTakipAPI.Controllers.ProductsController",
+    "Method": "Get",
+    "RelativePath": "api/Products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StokTakipAPI.Controllers.ProductsController",
+    "Method": "ChangePrices",
+    "RelativePath": "api/Products/change-prices",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StokTakipAPI.Controllers.ProductsController",
+    "Method": "GetCurrency",
+    "RelativePath": "api/Products/currency",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

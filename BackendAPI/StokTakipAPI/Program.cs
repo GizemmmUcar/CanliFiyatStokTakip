@@ -1,0 +1,32 @@
+using Microsoft.EntityFrameworkCore;
+using StokTakipAPI.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+        builder.SetIsOriginAllowed(_ => true) 
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials()); 
+});
+
+var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors("AllowAll");
+app.UseAuthorization();
+app.MapHub<StokTakipAPI.Hubs.ProductHub>("/hub/products");
+app.MapControllers();
+
+app.Run("http://0.0.0.0:5083");

@@ -1,0 +1,10 @@
+# Mobil tarafın gereksizleri
+MobileApp/node_modules/
+MobileApp/.expo/
+MobileApp/npm-debug.log*
+
+# Backend tarafın gereksizleri
+BackendAPI/bin/
+BackendAPI/obj/
+BackendAPI/.vs/
+BackendAPI/appsettings.Development.json
