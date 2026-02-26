@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using StokTakipAPI.Data;
 using StokTakipAPI.Hubs;
 using StokTakipAPI.Models;
-using System.Net.Http;
 using System.Text.Json;
 
 namespace StokTakipAPI.Controllers
@@ -29,6 +28,62 @@ namespace StokTakipAPI.Controllers
             return Ok(products);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Urun yeniUrun)
+        {
+            if (yeniUrun == null)
+                return BadRequest("Ürün bilgileri boş olamaz.");
+
+            if (yeniUrun.SatisGecmisi == null || yeniUrun.SatisGecmisi.Length == 0)
+            {
+                yeniUrun.SatisGecmisi = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            }
+
+            _context.Urunler.Add(yeniUrun);
+            await _context.SaveChangesAsync();
+
+            var products = await _context.Urunler.ToListAsync();
+            await _hubContext.Clients.All.SendAsync("Currency Updated", products);
+
+            return Ok(yeniUrun);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Urun guncelUrun)
+        {
+            var urun = await _context.Urunler.FindAsync(id);
+            if (urun == null)
+                return NotFound($"ID'si {id} olan ürün bulunamadı.");
+
+            urun.UrunAdi = guncelUrun.UrunAdi;
+            urun.Stok = guncelUrun.Stok;
+            urun.FiyatUsd = guncelUrun.FiyatUsd;
+            urun.SatisGecmisi = guncelUrun.SatisGecmisi;
+
+            await _context.SaveChangesAsync();
+
+            var products = await _context.Urunler.ToListAsync();
+            await _hubContext.Clients.All.SendAsync("Currency Updated", products);
+
+            return Ok(urun);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var urun = await _context.Urunler.FindAsync(id);
+            if (urun == null)
+                return NotFound($"ID'si {id} olan ürün bulunamadı.");
+
+            _context.Urunler.Remove(urun);
+            await _context.SaveChangesAsync();
+
+            var products = await _context.Urunler.ToListAsync();
+            await _hubContext.Clients.All.SendAsync("Currency Updated", products);
+
+            return Ok($"{urun.UrunAdi} başarıyla silindi.");
+        }
+
         [HttpGet("currency")]
         public async Task<IActionResult> GetCurrency()
         {
@@ -46,29 +101,8 @@ namespace StokTakipAPI.Controllers
             }
             catch (Exception)
             {
-                return Ok(new { rate = 3 });
+                return StatusCode(500, "Kur bilgisi şu an alınamıyor.");
             }
-        }
-
-        [HttpGet("change-prices")]
-        public async Task<IActionResult> ChangePrices()
-        {
-            var random = new Random();
-            var products = await _context.Urunler.ToListAsync();
-
-            foreach (var urun in products)
-            {
-                urun.FiyatUsd += random.Next(-50, 50);
-
-                if (urun.Stok > 0)
-                    urun.Stok -= random.Next(0, 2);
-            }
-
-            await _context.SaveChangesAsync();
-
-            await _hubContext.Clients.All.SendAsync("Currency Updated", products);
-
-            return Ok("Fiyatlar SQL Veritabanına kaydedildi.");
         }
     }
 }

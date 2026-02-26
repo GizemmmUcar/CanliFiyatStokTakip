@@ -14,11 +14,12 @@ builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
-        builder.SetIsOriginAllowed(_ => true) 
+        builder.SetIsOriginAllowed(_ => true)
                .AllowAnyMethod()
                .AllowAnyHeader()
-               .AllowCredentials()); 
+               .AllowCredentials());
 });
+
 
 var app = builder.Build();
 

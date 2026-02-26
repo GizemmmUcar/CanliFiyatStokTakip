@@ -41,3 +41,6 @@ app-example
 # generated native folders
 /ios
 /android
+.env
+# Güvenlik: API anahtarlarını GitHub'a yükleme
+utils/apiKeys.ts

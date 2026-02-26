@@ -46,48 +46,6 @@ namespace StokTakipAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Urunler");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FiyatUsd = 1200m,
-                            SatisGecmisi = "2,3,1,4,2,3,2",
-                            Stok = 5,
-                            UrunAdi = "Laptop"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FiyatUsd = 150m,
-                            SatisGecmisi = "1,2,0,1,2,1,1",
-                            Stok = 100,
-                            UrunAdi = "Kablosuz Kulaklık"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FiyatUsd = 250m,
-                            SatisGecmisi = "5,4,6,5,4,5,5",
-                            Stok = 8,
-                            UrunAdi = "Akıllı Saat"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FiyatUsd = 150m,
-                            SatisGecmisi = "5,3,10,1,3,2,2",
-                            Stok = 26,
-                            UrunAdi = "Klavye"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FiyatUsd = 50m,
-                            SatisGecmisi = "2,2,3,1,1,1,1",
-                            Stok = 2,
-                            UrunAdi = "Kablolu Kulaklık"
-                        });
                 });
 #pragma warning restore 612, 618
         }

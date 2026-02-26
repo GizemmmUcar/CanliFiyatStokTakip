@@ -10,3 +10,5 @@
         public int[] SatisGecmisi { get; set; } = new int[0];
     }
 }
+
+// http://localhost:5083/swagger

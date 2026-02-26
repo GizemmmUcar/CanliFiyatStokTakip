@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StokTakipAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fed2275c033e360d0c8f2d2d71404e2703247f6d")]
 [assembly: System.Reflection.AssemblyProductAttribute("StokTakipAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StokTakipAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
